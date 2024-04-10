@@ -20,7 +20,6 @@ export default function SigninPage() {
         <Button>로그인</Button>
        </Box>
       </Box>
-        <h1>SignIn Page</h1>
     </div>
   );
 }
