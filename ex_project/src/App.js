@@ -11,14 +11,16 @@ function App() {
   return (
     <>
     <BrowserRouter>
-    <Box sx = {{paddingTop:'40px'}}>
+    <Box sx = {{paddingTop:'40px', display : 'flex'}}>
       <Navbar/>
+      <Box sx = {{marginLeft:'300px'}}>
         <Routes>
           <Route exact path = '/' element={<MainPage/>}/>
           <Route exact path = '/library' element={<LibraryPage/>}/>
           <Route exact path = '/signin' element={<SigninPage/>}/>
           <Route exact path = '/signup' element={<SignupPage/>}/>
         </Routes>
+      </Box>
     </Box>
     </BrowserRouter>
     </>
