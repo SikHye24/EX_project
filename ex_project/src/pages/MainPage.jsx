@@ -24,16 +24,14 @@ export default function MainPage() {
   return (
     <div>
       <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <Box>
-          <Button sx={{ color: 'black', marginLeft:'115px'}}
+        <Box sx={{marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content'}}>
+        <Button sx={{ color: 'black'}}
             onClick={()=>{
               Navigate('/library');
             }}
           >전체 보기</Button>
+          {rows}
         </Box>
-          <Box sx={{marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content'}}>
-            {rows}
-          </Box>
       </Box>
     </div>
   );
