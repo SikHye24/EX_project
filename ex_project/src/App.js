@@ -14,7 +14,7 @@ function App() {
     <BrowserRouter>
     <Box sx = {{paddingTop:'40px', display : 'flex', flexDirection : 'column', minHeight : '100vh'}}>
       <Navbar/>
-      <Box sx = {{flexGrow : 1}}>
+      <Box sx = {{marginTop :'30px',flexGrow : 1}}>
         <Routes>
           <Route exact path = '/' element={<MainPage/>}/>
           <Route exact path = '/library' element={<LibraryPage/>}/>
