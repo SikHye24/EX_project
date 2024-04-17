@@ -29,7 +29,7 @@ export default function Navbar() {
               Navigate('/');
             }}
           >
-            Navbar
+            UXM MUSIC
           </Button>
           <Button
             sx={{ color: 'black', ml: 2 }}

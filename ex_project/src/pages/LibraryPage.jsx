@@ -1,7 +1,15 @@
 import React from 'react';
 import {Box, Grid,Divider} from '@mui/material';
+import Musiclist from '../Components/Musiclist';
 
 export default function LibraryPage() {
+  const musiclists = Array.from({ length: 10 }, (_, index) => (
+    <React.Fragment key={index}>
+      <Musiclist />
+      {index !== 9 && <Divider sx={{ marginTop: '10px', marginBottom: '10px' }} />}
+    </React.Fragment>
+  ));
+
   return (
     <div>
       <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center',backgroundColor : 'white' }}>
@@ -9,7 +17,7 @@ export default function LibraryPage() {
         <Divider sx={{marginBottom: '10px'}} />
         <Grid item xs={10} sm={6} md={4}>
         <Grid container spacing={2}>
-          <Grid item xs={6} sx={{whiteSpace: 'nowrap'}}>
+          <Grid item xs={7} sx={{whiteSpace: 'nowrap'}}>
             <p1>곡/앨범</p1>
           </Grid>
           <Grid item xs={3} sx={{whiteSpace: 'nowrap'}}>
@@ -24,6 +32,10 @@ export default function LibraryPage() {
         </Grid>
         <Divider sx={{marginTop:'10px',marginBottom: '10px'}} />
         </Grid>
+      </Box>
+      <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center',backgroundColor : 'white' }}>
+        {musiclists}
+        <Divider sx={{marginTop:'10px',marginBottom: '10px'}} />
       </Box>
     </div>
   );

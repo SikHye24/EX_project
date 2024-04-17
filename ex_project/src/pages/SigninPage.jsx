@@ -18,6 +18,7 @@ export default function SigninPage() {
     <div>
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', backgroundColor : 'white' }}>
        <Box sx={{width : '600px', height : '500px',backgroundColor : 'white',display: 'flex', border : '1px solid gray',flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        <h1>로그인</h1>
         <TextField sx={{width : '300px', height:'40px',backgroundColor : 'white', marginBottom: '30px'}}
           label="아이디(이메일)"
         ></TextField>
