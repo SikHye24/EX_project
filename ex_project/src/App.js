@@ -7,6 +7,8 @@ import LibraryPage from './pages/LibraryPage';
 import SigninPage from './pages/SigninPage';
 import SignupPage from './pages/SignupPage';
 import Footer from './Components/Footer';
+import SonginfoPage from './pages/SonginfoPage';
+import MusicpurchasePage from './pages/MusicpurchasePage';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
           <Route exact path = '/library' element={<LibraryPage/>}/>
           <Route exact path = '/signin' element={<SigninPage/>}/>
           <Route exact path = '/signup' element={<SignupPage/>}/>
+          <Route exact path = '/songinfo' element={<SonginfoPage/>}/>
+          <Route exact path = 'musicpurchase' element={<MusicpurchasePage/>}/>
         </Routes>
       </Box>
       <Footer/>

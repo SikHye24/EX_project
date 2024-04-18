@@ -5,7 +5,12 @@ import Musiclist from '../Components/Musiclist';
 export default function LibraryPage() {
   const musiclists = Array.from({ length: 10 }, (_, index) => (
     <React.Fragment key={index}>
-      <Musiclist />
+      <Musiclist 
+        image="https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/0_JTh3JET7ZCHaT_IJhG4VbhEpI.png"
+        title={"test"}
+        artist={"test-artsit"}
+        album={"test-album"}
+      />
       {index !== 9 && <Divider sx={{ marginTop: '10px', marginBottom: '10px' }} />}
     </React.Fragment>
   ));
