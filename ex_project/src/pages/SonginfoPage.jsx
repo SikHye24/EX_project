@@ -36,11 +36,16 @@ export default function SonginfoPage() {
                 Navigate('/musicpurchase')
               }}
             />
-            <AudioFileIcon />
+            <AudioFileIcon 
+              onClick = {() => {
+                Navigate('/nftpurchase')
+              }}
+            />
           </Box>
         </Box>
       </Box>
       <Divider sx={{marginTop : '50px',marginLeft : '200px', marginRight : '200px'}}/>
+      {/* 컴포넌트 분리 필요 (songinfo component)*/}
       <Box sx={{marginTop : '30px',marginLeft : '200px', marginRight : '200px', display : 'flex', flexDirection : 'column'}}>
         <h1>info</h1>
         <Box>

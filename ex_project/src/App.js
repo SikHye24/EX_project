@@ -9,6 +9,7 @@ import SignupPage from './pages/SignupPage';
 import Footer from './Components/Footer';
 import SonginfoPage from './pages/SonginfoPage';
 import MusicpurchasePage from './pages/MusicpurchasePage';
+import NFTpurchasePage from './pages/NFTpurchasePage';
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
           <Route exact path = '/signin' element={<SigninPage/>}/>
           <Route exact path = '/signup' element={<SignupPage/>}/>
           <Route exact path = '/songinfo' element={<SonginfoPage/>}/>
-          <Route exact path = 'musicpurchase' element={<MusicpurchasePage/>}/>
+          <Route exact path = '/musicpurchase' element={<MusicpurchasePage/>}/>
+          <Route exact path = '/nftpurchase' element={<NFTpurchasePage/>}/>
         </Routes>
       </Box>
       {/* <Footer/> */}

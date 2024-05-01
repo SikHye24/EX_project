@@ -39,12 +39,20 @@ export default function Musiclist({image, title, artist, album}) {
       </Grid>
       <Grid item xs={1}>
         <Box sx={{ display: 'flex', marginTop : '20px'}}>
-          <MusicNoteIcon />
+          <MusicNoteIcon 
+            onClick = {() => {
+              Navigate('/musicpurchase');
+            }}
+          />
         </Box>
       </Grid>
       <Grid item xs={1}>
         <Box sx={{ display: 'flex', marginTop : '20px'}}>
-          <AudioFileIcon />
+          <AudioFileIcon 
+            onClick = {() => {
+              Navigate('/NFTpurchase');
+            }}
+          />
         </Box>
       </Grid>
     </Grid>

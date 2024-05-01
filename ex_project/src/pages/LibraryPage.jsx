@@ -38,7 +38,7 @@ export default function LibraryPage() {
         <Divider sx={{marginTop:'10px',marginBottom: '10px'}} />
         </Grid>
       </Box>
-      <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center',backgroundColor : 'white' }}>
+      <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center',backgroundColor : 'white', marginBottom : '30px' }}>
         {musiclists}
         <Divider sx={{marginTop:'10px',marginBottom: '10px'}} />
       </Box>

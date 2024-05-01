@@ -1,5 +1,5 @@
-import React from 'react';
-import { Divider ,Box, Card, CardMedia, Button, Select, MenuItem } from '@mui/material';
+import React, { useState } from 'react';
+import { Divider ,Box, Card, CardMedia, Button, TextField } from '@mui/material';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import ContentPasteIcon from '@mui/icons-material/ContentPaste';
@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router';
 
 export default function MusicpurchasePage() {
   const Navigate = useNavigate();
+
+  const [price, setPrice] = useState(10);
 
   return (
     <div>
@@ -36,15 +38,24 @@ export default function MusicpurchasePage() {
                 Navigate('/musicpurchase')
               }}
             />
-            <AudioFileIcon />
+            <AudioFileIcon 
+              onClick = {() => {
+                Navigate('/nftpurchase')
+              }}
+            />
           </Box>
           </Box>
       </Box>
       <Divider sx={{marginTop : '50px',marginLeft : '200px', marginRight : '200px'}}/>
-      <Box sx={{backgroundColor : 'gray',marginTop : '10px',marginLeft : '200px', marginRight : '200px', display : 'flex', flexDirection : 'row'}}>
-        <Select>
-          <MenuItem>판매자 1</MenuItem>
-        </Select>
+      <Box sx={{marginTop : '30px',marginLeft : '500px', marginRight : '500px', display : 'flex', flexDirection : 'column'}}>
+        <Box sx={{martingBottom : '10px'}}>
+          <h1>음원 구매</h1>
+        </Box>
+        <h2>음원 가격</h2>
+        <TextField
+          value = {price}
+          disabled
+        />
       </Box>
     </div>
   );
