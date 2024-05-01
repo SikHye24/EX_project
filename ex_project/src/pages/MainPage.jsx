@@ -23,7 +23,7 @@ export default function MainPage() {
 
   return (
     <div>
-      <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      <Box sx={{marginLeft: '200px', marginRight: '200px', display: 'flex', flexDirection: 'column', justifyContent: 'center', marginTop : '30px' }}>
         <Box sx={{marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content'}}>
         <Button sx={{ color: 'black'}}
             onClick={()=>{
