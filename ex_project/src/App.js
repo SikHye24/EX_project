@@ -26,7 +26,7 @@ function App() {
           <Route exact path = 'musicpurchase' element={<MusicpurchasePage/>}/>
         </Routes>
       </Box>
-      <Footer/>
+      {/* <Footer/> */}
     </Box>
     </BrowserRouter>
     </>
