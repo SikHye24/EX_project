@@ -1,7 +1,12 @@
 import React from 'react';
 import { Divider ,Box, Card, CardMedia, Button, Select, MenuItem } from '@mui/material';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
+import AudioFileIcon from '@mui/icons-material/AudioFile';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import { useNavigate } from 'react-router';
 
 export default function MusicpurchasePage() {
+  const Navigate = useNavigate();
 
   return (
     <div>
@@ -18,6 +23,21 @@ export default function MusicpurchasePage() {
             <h1>test</h1>
             <Button sx = {{color : 'black'}}>test-artist</Button>
             <Button sx = {{color : 'gray'}}>test-album</Button>
+            <Box sx = {{display : 'flex', flexDirection : 'row', marginTop : '20px'}}>
+            <ContentPasteIcon
+              sx = {{marginRight : '10px'}}
+              onClick = {() => {
+                Navigate('/songinfo')
+              }}
+            />
+            <MusicNoteIcon 
+              sx = {{marginRight : '10px'}}
+              onClick = {()=>{
+                Navigate('/musicpurchase')
+              }}
+            />
+            <AudioFileIcon />
+          </Box>
           </Box>
       </Box>
       <Divider sx={{marginTop : '50px',marginLeft : '200px', marginRight : '200px'}}/>

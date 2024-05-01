@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Button, Card, CardMedia, Divider, } from '@mui/material';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
 import { useNavigate } from 'react-router';
 
 export default function SonginfoPage() {
@@ -23,6 +24,12 @@ export default function SonginfoPage() {
           <Button sx = {{color : 'black'}}>test-artist</Button>
           <Button sx = {{color : 'gray'}}>test-album</Button>
           <Box sx = {{display : 'flex', flexDirection : 'row', marginTop : '20px'}}>
+            <ContentPasteIcon
+              sx = {{marginRight : '10px'}}
+              onClick = {() => {
+                Navigate('/songinfo')
+              }}
+            />
             <MusicNoteIcon 
               sx = {{marginRight : '10px'}}
               onClick = {()=>{
