@@ -39,7 +39,7 @@ export default function SigninPage() {
         <Box>
           <Button onClick={() => {Navigate('/signup')}}>회원가입</Button>
         </Box>
-        <Button sx={{width : '300px', height : '40px', color : 'black', backgroundColor : '#d0d0d0'}}>로그인</Button>
+        <Button sx={{width : '300px', height : '40px', color : 'black', backgroundColor : '#d0d0d0', marginTop : '10px'}}>로그인</Button>
        </Box>
       </Box>
     </div>

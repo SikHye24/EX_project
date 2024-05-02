@@ -10,6 +10,7 @@ export default function NFTpurchasePage() {
 
   const [NFT, setNFT] = useState('');
   const [blockchain, setBlockchain] = useState('');
+  const [price, setPrice] = useState('0.005 ETH');
 
   const handleNFTChange = (event) => {
     setNFT(event.target.value);
@@ -74,6 +75,13 @@ export default function NFTpurchasePage() {
             <MenuItem value = {3}>NFT 3</MenuItem>
           </Select>
         </FormControl>
+        <TextField sx={{marginTop : '20px'}}
+          value = {price}
+          disabled
+        />
+        <Box sx={{marginTop : '10px'}}>
+          <p1 style={{color : 'gray'}}>*트랜잭션 비용은 별도입니다</p1>
+        </Box>
         <Box sx={{display: 'flex', flexDirection: 'row', marginTop: '20px'}}>
           <TextField sx={{width: '60%'}} 
             label="구매가 입력"

@@ -56,6 +56,7 @@ export default function MusicpurchasePage() {
           value = {price}
           disabled
         />
+        <Button sx={{width : 'fullwidth', height : '50px',marginTop : '10px', color : 'white', backgroundColor : '#0064FF'}}>음원 구매</Button>
       </Box>
     </div>
   );
