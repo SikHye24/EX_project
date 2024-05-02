@@ -1,10 +1,23 @@
-import React from 'react';
-import { Grid, Box, Button, TextField } from '@mui/material';
+import React, { useState } from 'react';
+import { Grid, Box, Button, TextField, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
+import useAuth from '../Context/UseAuth';
 
 export default function Navbar() {
   const Navigate = useNavigate();
+
+  const { authState, logout } = useAuth();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Grid
@@ -58,7 +71,43 @@ export default function Navbar() {
           />
         </Box>
       </Grid>
-      <Grid item xs={2} sm={6} md={8} sx={{ textAlign: 'right' }}>
+      {authState.isLoggedIn ? (
+        <Grid item xs={2} sm={6} md={8} sx={{ textAlign: 'right' }}>
+        <Button
+          sx={{ color: 'gray', mr: 1 }}
+          onClick={() => {
+            Navigate('/userlibrary');
+          }}
+        >
+          보관함
+        </Button>
+        <Button
+        sx={{ color: 'gray' }}
+        onClick={handleOpenMenu}
+      >
+        마이페이지
+      </Button>
+        <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleCloseMenu}
+      >
+        <MenuItem onClick={handleCloseMenu}>사용자 정보</MenuItem>
+        <MenuItem onClick={() => {
+          Navigate('/upload')
+        }}>업로드</MenuItem>
+        <MenuItem
+          onClick={() => {
+            logout();
+            handleCloseMenu();
+          }}
+        >
+          로그아웃
+        </MenuItem>
+      </Menu>
+      </Grid>
+      ) : (
+        <Grid item xs={2} sm={6} md={8} sx={{ textAlign: 'right' }}>
         <Button
           sx={{ color: 'gray', mr: 1 }}
           onClick={() => {
@@ -76,6 +125,7 @@ export default function Navbar() {
           로그인
         </Button>
       </Grid>
+      )}
     </Grid>
   );
 }

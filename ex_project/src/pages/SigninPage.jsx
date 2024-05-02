@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {useNavigate} from 'react-router-dom'
+import useAuth from '../Context/UseAuth';
 
 export default function SigninPage() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -11,6 +12,13 @@ export default function SigninPage() {
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
+  };
+
+  const { login } = useAuth();
+
+  const handleLogin = () => {
+    login({ username: 'example' });
+    Navigate('/');
   };
 
   const Navigate = useNavigate();
@@ -39,7 +47,9 @@ export default function SigninPage() {
         <Box>
           <Button onClick={() => {Navigate('/signup')}}>회원가입</Button>
         </Box>
-        <Button sx={{width : '300px', height : '40px', color : 'black', backgroundColor : '#d0d0d0', marginTop : '10px'}}>로그인</Button>
+        <Button sx={{width : '300px', height : '40px', color : 'black', backgroundColor : '#d0d0d0', marginTop : '10px'}}
+          onClick={(handleLogin)}
+        >로그인</Button>
        </Box>
       </Box>
     </div>
