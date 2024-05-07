@@ -35,9 +35,14 @@ export default function LibraryMusiclist({image, title, artist, album}) {
           <Button sx={{color : 'black'}}>{artist}</Button>
         </Box>
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <Box sx={{ display: 'flex', marginTop : '20px'}}>
-          <Button>음원 다운로드</Button>
+          <p1>생성됨</p1>
+        </Box>
+      </Grid>
+      <Grid item xs={1}>
+        <Box sx={{ display: 'flex', marginTop : '20px'}}>
+          <p1>판매중</p1>
         </Box>
       </Grid>
     </Grid>
