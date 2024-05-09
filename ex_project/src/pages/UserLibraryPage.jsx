@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Box, Grid, Divider, Button } from '@mui/material';
-import Musiclist from '../Components/Musiclist';
 import LibraryNFTMusiclist from '../Components/LibraryNFTMusiclist';
 import LibraryMusiclist from '../Components/LibraryMusiclist';
 
@@ -61,6 +60,7 @@ export default function UserLibraryPage() {
           title={"test"}
           artist={"test-artsit"}
           album={"test-album"}
+          Ismine={'true'}
         />
         <Box sx = {{marginTop : '30px'}}>
         <h1>소유중인 항목</h1>
@@ -81,11 +81,12 @@ export default function UserLibraryPage() {
         </Grid>
         <Divider sx={{marginTop:'10px',marginBottom: '10px'}} />
         </Grid>
-        <Musiclist 
+        <LibraryNFTMusiclist 
         image="https://t1.daumcdn.net/thumb/R720x0.fpng/?fname=http://t1.daumcdn.net/brunch/service/user/8fXh/image/0_JTh3JET7ZCHaT_IJhG4VbhEpI.png"
         title={"test"}
         artist={"test-artsit"}
         album={"test-album"}
+        Ismine={'false'}
       />
       </Box>
           </div>

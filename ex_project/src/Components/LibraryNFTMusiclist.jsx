@@ -2,7 +2,7 @@ import React from 'react';
 import {Box, Grid, Button ,Card, CardMedia} from '@mui/material';
 import { useNavigate } from 'react-router';
 
-export default function LibraryMusiclist({image, title, artist, album}) {
+export default function LibraryMusiclist({image, title, artist, album, Ismine}) {
   const Navigate = useNavigate();
   return (
     <Grid container spacing={2}>
@@ -37,7 +37,11 @@ export default function LibraryMusiclist({image, title, artist, album}) {
       </Grid>
       <Grid item xs={1}>
         <Box sx={{ display: 'flex', marginTop : '20px'}}>
-          <p1>생성됨</p1>
+        {Ismine === 'true' ? (
+        <p1>생성됨</p1>
+      ) : (
+        <p1></p1>
+      )}
         </Box>
       </Grid>
       <Grid item xs={1}>
