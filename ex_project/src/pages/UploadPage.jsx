@@ -2,13 +2,18 @@ import { Box, Button } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import AlbumUpload from '../Components/UploadComponents/AlbumUpload';
+import { ImageProvider, useImageContext } from '../Context/ImageProvider';
+import BasicInformation from '../Components/UploadComponents/BasicInformation';
+import NFTInformation from '../Components/UploadComponents/NFTInformation';
+import MusicFile from '../Components/UploadComponents/MusicFile';
 
 export default function UploadPage() {
   const Navigate = useNavigate();
+  const { image , setImage} = useImageContext();
 
   const [page, setPage] = useState(1);
 
-  const ChangeNextPage = () =>{
+  const ChangeNextPage = () => {
     setPage(page + 1);
     console.log(page);
   };
@@ -27,31 +32,70 @@ export default function UploadPage() {
           <Button
             disabled
             sx={{
-              backgroundColor: 'lightgray',
-              color: 'white',
+              borderRadius : '100%',
+              width : '60px',
+              height : '60px',
+              minWidth : '0',
+              padding : '0',
+              marginRight : '20px',
               '&:disabled': {
-                backgroundColor: 'darkgray',
-                color: 'white',
+                backgroundColor: page === 1 ? '#0064FF' : 'lightgray',
+                color: page === 1 ? 'white' : 'gray'
               },
             }}
           >1</Button>
           <Button
             disabled
+            sx={{
+              borderRadius : '100%',
+              width : '60px',
+              height : '60px',
+              minWidth : '0',
+              padding : '0',
+              marginRight : '20px',
+              '&:disabled': {
+                backgroundColor: page === 2 ? '#0064FF' : 'lightgray',
+                color: page === 2 ? 'white' : 'gray'
+              },
+            }}
           >2</Button>
           <Button 
             disabled
+            sx={{
+              borderRadius : '100%',
+              width : '60px',
+              height : '60px',
+              minWidth : '0',
+              padding : '0',
+              marginRight : '20px',
+              '&:disabled': {
+                backgroundColor: page === 3 ? '#0064FF' : 'lightgray',
+                color: page === 3 ? 'white' : 'gray'
+              },
+            }}
           >3</Button>
           <Button
             disabled
+            sx={{
+              borderRadius : '100%',
+              width : '60px',
+              height : '60px',
+              minWidth : '0',
+              padding : '0',
+              '&:disabled': {
+                backgroundColor: page === 4 ? '#0064FF' : 'lightgray',
+                color: page === 4 ? 'white' : 'gray'
+              },
+            }}
           >4</Button>
         </Box>
         <Box sx={{ marginTop: '20px', textAlign: 'center' }}>
           {page === 1 && <AlbumUpload/>}
-          {page === 2 && <h1>2</h1>}
-          {page === 3 && <h1>3</h1>}
-          {page === 4 && <h1>4</h1>}
+          {page === 2 && <BasicInformation/>}
+          {page === 3 && <NFTInformation/>}
+          {page === 4 && <MusicFile/>}
         </Box>
-        <Box sx = {{ marginTop : '50px',marginRight : '200px',marginLeft : 'auto' }}>
+        <Box sx = {{ marginTop : '50px',marginRight : '200px',marginLeft : 'auto', marginBottom : '30px' }}>
           {page > 1 &&
             <Button
               onClick={ChangePreviousPage}

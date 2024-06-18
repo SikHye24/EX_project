@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Card, Box, Typography } from '@mui/material';
+import { useImageContext } from '../../Context/ImageProvider';
 
 export default function AlbumUpload() {
+  const { img, setImg, setImgError } = useImageContext();
 
   const [image, setImage] = useState(null);
   const [error, setError] = useState('');

@@ -13,11 +13,13 @@ import NFTpurchasePage from './pages/NFTpurchasePage';
 import AuthProvider from './Context/AuthProvider';
 import UserLibraryPage from './pages/UserLibraryPage';
 import UploadPage from './pages/UploadPage';
+import { ImageProvider } from './Context/ImageProvider';
 
 function App() {
   return (
     <>
     <AuthProvider>
+    <ImageProvider>
     <BrowserRouter>
     <Box sx = {{paddingTop:'40px', display : 'flex', flexDirection : 'column', minHeight : '100vh'}}>
       <Navbar/>
@@ -37,6 +39,7 @@ function App() {
       {/* <Footer/> */}
     </Box>
     </BrowserRouter>
+    </ImageProvider>
     </AuthProvider>
     </>
   );
