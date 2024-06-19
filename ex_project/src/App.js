@@ -16,6 +16,7 @@ import UploadPage from './pages/UploadPage';
 import { ImageProvider } from './Context/ImageProvider';
 import ProfilePage from './pages/ProfilePage';
 import Error404 from './pages/ErrorPage/Error404';
+import SearchResultsPage from './pages/SearchResultPage';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route exact path = '/userlibrary' element={<UserLibraryPage/>}/>
           <Route exact path = '/upload' element={<UploadPage/>}/>
           <Route exact path = '/profile' element={<ProfilePage/>}/>
+          <Route exact path = '/searchresults' element={<SearchResultsPage/>}/>
 
           <Route exact path = '/404' element={<Error404/>}/>
         </Routes>

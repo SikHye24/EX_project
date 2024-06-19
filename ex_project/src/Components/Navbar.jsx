@@ -3,14 +3,15 @@ import { Grid, Box, Button, TextField, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import useAuth from '../Context/UseAuth';
+import axios from 'axios';
 
 export default function Navbar() {
   const navigate = useNavigate();
   const token = localStorage.getItem('jwtToken');
-
   const { authState, logout } = useAuth();
-
   const [anchorEl, setAnchorEl] = useState(null);
+  const [search, setSearch] = useState(''); // 검색 입력 값을 상태로 관리
+  const [data, setData] = useState([]); // 검색 결과를 저장할 상태
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -24,6 +25,28 @@ export default function Navbar() {
     localStorage.removeItem('jwtToken'); // 로그아웃 시 localStorage에서 토큰 삭제
     handleCloseMenu();
     navigate('/'); // 로그아웃 후 메인 페이지로 이동
+  };
+
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleOnClick = async () => {
+    console.log(search);
+    await axios
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music?search=${search}`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((res) => {
+        setData(res.data.data);
+        console.log(res.data.data);
+        navigate('/searchresults', { state: { results: res.data.data } });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -63,10 +86,11 @@ export default function Navbar() {
         </Box>
       </Grid>
       <Grid item xs={12} sm={4} md={6}>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <TextField
-            placeholder="검색"
             variant="outlined"
+            value={search} // 검색 입력 값을 TextField에 바인딩
+            onChange={handleSearchChange} // 입력 값이 변경될 때 상태 업데이트
             InputProps={{
               startAdornment: (
                 <SearchIcon sx={{ color: 'gray', ml: 1 }} />
@@ -80,9 +104,9 @@ export default function Navbar() {
               },
             }}
           />
+          <Button onClick={handleOnClick} sx={{ ml: 2, color: 'black' }}>검색</Button>
         </Box>
       </Grid>
-      {/* 토큰 사용하게 변경 */}
       {token ? (
         <Grid item xs={12} sm={4} md={3} sx={{ textAlign: 'right' }}>
           <Button
