@@ -5,18 +5,28 @@ import AudioFileIcon from '@mui/icons-material/AudioFile';
 import { useNavigate } from 'react-router';
 
 export default function Musiclist({image, title, artist, album}) {
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+  const isBase64 = (str) => {
+    try {
+      return btoa(atob(str)) === str;
+    } catch (err) {
+      return false;
+    }
+  };
+
+  const imageUrl = isBase64(image) ? `data:image/jpeg;base64,${image}` : image;
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={1}>
         <Card sx={{ width: '70px', height: '70px' }}>
           <CardMedia
             component="img"
-            image={image}
+            image={imageUrl}
             alt="Music"
             sx={{ width: '100%', height: '100%' }}
             onClick={() => {
-              Navigate('/songinfo');
+              navigate('/songinfo');
             }}
           />
         </Card>
@@ -24,33 +34,33 @@ export default function Musiclist({image, title, artist, album}) {
       <Grid item xs={6}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
           <Button 
-            sx={{ textAlign: 'left', color : 'black'}}
+            sx={{ textAlign: 'left', color: 'black' }}
             onClick={() => {
-              Navigate('/songinfo');
+              navigate('/songinfo');
             }}
           >{title}</Button>
-          <Button sx={{ textAlign: 'left', color : 'gray'}}>{album}</Button>
+          <Button sx={{ textAlign: 'left', color: 'gray' }}>{album}</Button>
         </Box>
       </Grid>
       <Grid item xs={3}>
-        <Box sx={{ display: 'flex', marginTop : '15px'}}>
-          <Button sx={{color : 'black'}}>{artist}</Button>
+        <Box sx={{ display: 'flex', marginTop: '15px' }}>
+          <Button sx={{ color: 'black' }}>{artist}</Button>
         </Box>
       </Grid>
       <Grid item xs={1}>
-        <Box sx={{ display: 'flex', marginTop : '20px'}}>
+        <Box sx={{ display: 'flex', marginTop: '20px' }}>
           <MusicNoteIcon 
-            onClick = {() => {
-              Navigate('/musicpurchase');
+            onClick={() => {
+              navigate('/musicpurchase');
             }}
           />
         </Box>
       </Grid>
       <Grid item xs={1}>
-        <Box sx={{ display: 'flex', marginTop : '20px'}}>
+        <Box sx={{ display: 'flex', marginTop: '20px' }}>
           <AudioFileIcon 
-            onClick = {() => {
-              Navigate('/NFTpurchase');
+            onClick={() => {
+              navigate('/NFTpurchase');
             }}
           />
         </Box>
@@ -58,4 +68,3 @@ export default function Musiclist({image, title, artist, album}) {
     </Grid>
   );
 }
-

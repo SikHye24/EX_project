@@ -104,7 +104,10 @@ export default function Navbar() {
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={handleCloseMenu}>사용자 정보</MenuItem>
+            <MenuItem onClick={() => {
+              navigate('/profile');
+              handleCloseMenu();
+            }}>사용자 정보</MenuItem>
             <MenuItem onClick={() => {
               navigate('/upload');
               handleCloseMenu();

@@ -14,6 +14,7 @@ import AuthProvider from './Context/AuthProvider';
 import UserLibraryPage from './pages/UserLibraryPage';
 import UploadPage from './pages/UploadPage';
 import { ImageProvider } from './Context/ImageProvider';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route exact path = '/nftpurchase' element={<NFTpurchasePage/>}/>
           <Route exact path = '/userlibrary' element={<UserLibraryPage/>}/>
           <Route exact path = '/upload' element={<UploadPage/>}/>
+          <Route exact path = '/profile' element={<ProfilePage/>}/>
         </Routes>
       </Box>
       {/* <Footer/> */}
