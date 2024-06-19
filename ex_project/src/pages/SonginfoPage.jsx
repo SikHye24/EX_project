@@ -68,18 +68,25 @@ export default function SonginfoPage() {
             <ContentPasteIcon
               sx={{ marginRight: '10px' }}
               onClick={() => {
-                navigate('/songinfo');
+                navigate(`/songinfo/${data.id}`, {
+                  state: {
+                    id: data.id,
+                    title: data.title,
+                    img: data.image,
+                    artist: data.artist,
+                  },
+                });
               }}
             />
             <MusicNoteIcon 
               sx={{ marginRight: '10px' }}
               onClick={() => {
-                navigate('/musicpurchase');
+                navigate(`/musicpurchase/${data.id}`);
               }}
             />
             <AudioFileIcon 
               onClick={() => {
-                navigate('/nftpurchase');
+                navigate(`/nftpurchase/${data.id}`);
               }}
             />
           </Box>
@@ -99,7 +106,8 @@ export default function SonginfoPage() {
         </Box>
         <Box sx={{ marginTop: '10px' }}>
           <p>작사</p>
-          <p style={{ marginLeft: '20px' }}>{data.lyricist}</p>
+          {/* <p style={{ marginLeft: '20px' }}>{data.lyricist}</p> */}
+          <p style={{ marginLeft: '20px' }}>dummy-composer</p>
         </Box>
         <Box sx={{ marginTop: '20px' }}>
           <p>{data.lyrics}</p>

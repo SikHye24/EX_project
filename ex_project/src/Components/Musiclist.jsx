@@ -26,7 +26,14 @@ export default function Musiclist({image, title, artist, album, id}) {
             alt="Music"
             sx={{ width: '100%', height: '100%' }}
             onClick={() => {
-              navigate('/songinfo');
+              navigate(`/songinfo/${id}`, {
+                state: {
+                  id: id,
+                  title: title,
+                  img: image,
+                  artist: artist,
+                },
+              });
             }}
           />
         </Card>
@@ -58,7 +65,7 @@ export default function Musiclist({image, title, artist, album, id}) {
         <Box sx={{ display: 'flex', marginTop: '20px' }}>
           <MusicNoteIcon 
             onClick={() => {
-              navigate('/musicpurchase');
+              navigate(`/musicpurchase/${id}`);
             }}
           />
         </Box>
@@ -67,7 +74,7 @@ export default function Musiclist({image, title, artist, album, id}) {
         <Box sx={{ display: 'flex', marginTop: '20px' }}>
           <AudioFileIcon 
             onClick={() => {
-              navigate('/NFTpurchase');
+              navigate(`/NFTpurchase/${id}`);
             }}
           />
         </Box>

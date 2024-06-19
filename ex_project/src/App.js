@@ -32,8 +32,8 @@ function App() {
           <Route exact path = '/signin' element={<SigninPage/>}/>
           <Route exact path = '/signup' element={<SignupPage/>}/>
           <Route exact path = '/songinfo/:id' element={<SonginfoPage/>}/>
-          <Route exact path = '/musicpurchase' element={<MusicpurchasePage/>}/>
-          <Route exact path = '/nftpurchase' element={<NFTpurchasePage/>}/>
+          <Route exact path = '/musicpurchase/:id' element={<MusicpurchasePage/>}/>
+          <Route exact path = '/nftpurchase/:id' element={<NFTpurchasePage/>}/>
           <Route exact path = '/userlibrary' element={<UserLibraryPage/>}/>
           <Route exact path = '/upload' element={<UploadPage/>}/>
           <Route exact path = '/profile' element={<ProfilePage/>}/>
