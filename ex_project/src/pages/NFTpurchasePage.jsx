@@ -14,27 +14,57 @@ export default function NFTpurchasePage() {
   const [NFT, setNFT] = useState('');
   const [blockchain, setBlockchain] = useState('');
   const [price, setPrice] = useState('0.005 ETH');
+  const [nftList, setNftList] = useState([]); // 추가된 상태
   const token = localStorage.getItem('jwtToken');
 
+  const getRes = async () => {
+    setLoading(true);
+    await axios
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then(async (res) => {
+        setData(res.data.data);
+        setPrice(res.data.data.price); // API에서 가격 정보가 제공되는 경우
+        const nftArray = await handleNFTSet(res.data.data); // NFT 목록을 가져옵니다.
+        setNftList(nftArray); // NFT 목록을 상태에 저장합니다.
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate('/403');
+      });
+  };
+
+  const handleNFTSet = async (result) => {
+    console.log(result);
+    const musicid = result.id;
+
+    let buyablenftarray = [];
+    await axios
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/nft/`, 
+      {
+        params: {
+          musicId: musicid,
+        },
+        headers: {
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        console.log(res.data.data);
+        buyablenftarray = res.data.data;
+      })
+      .catch((err) => {
+        console.log(err);
+        navigate('/403');
+      });
+    return buyablenftarray;
+  };
+
   useEffect(() => {
-    const getRes = async () => {
-      setLoading(true);
-      await axios
-        .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`, {
-          headers: {
-            Authorization: token,
-          },
-        })
-        .then((res) => {
-          setData(res.data.data);
-          setPrice(res.data.data.price); // API에서 가격 정보가 제공되는 경우
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.log(err);
-          navigate('/403');
-        });
-    };
     getRes();
   }, [id, token, navigate]);
 
@@ -55,6 +85,7 @@ export default function NFTpurchasePage() {
   const handleNFTChange = (event) => {
     setNFT(event.target.value);
   };
+
   const handleblockchainChange = (event) => {
     setBlockchain(event.target.value);
   };
@@ -110,9 +141,11 @@ export default function NFTpurchasePage() {
             onChange={handleNFTChange}
             sx={{ width: '100%' }}
           >
-            <MenuItem value={1}>NFT 1</MenuItem>
-            <MenuItem value={2}>NFT 2</MenuItem>
-            <MenuItem value={3}>NFT 3</MenuItem>
+            {nftList.map((nft) => (
+              <MenuItem key={nft.id} value={nft.tx_id}>
+                {nft.tx_id}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <TextField sx={{ marginTop: '20px' }}
@@ -145,4 +178,3 @@ export default function NFTpurchasePage() {
     </div>
   );
 }
-
