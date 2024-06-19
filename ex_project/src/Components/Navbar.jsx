@@ -6,6 +6,7 @@ import useAuth from '../Context/UseAuth';
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const token = localStorage.getItem('jwtToken');
 
   const { authState, logout } = useAuth();
 
@@ -17,6 +18,12 @@ export default function Navbar() {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwtToken'); // 로그아웃 시 localStorage에서 토큰 삭제
+    handleCloseMenu();
+    navigate('/'); // 로그아웃 후 메인 페이지로 이동
   };
 
   return (
@@ -75,7 +82,8 @@ export default function Navbar() {
           />
         </Box>
       </Grid>
-      {authState.isLoggedIn ? (
+      {/* 토큰 사용하게 변경 */}
+      {token ? (
         <Grid item xs={12} sm={4} md={3} sx={{ textAlign: 'right' }}>
           <Button
             sx={{ color: 'gray', mr: 1 }}
@@ -102,10 +110,7 @@ export default function Navbar() {
               handleCloseMenu();
             }}>업로드</MenuItem>
             <MenuItem
-              onClick={() => {
-                logout();
-                handleCloseMenu();
-              }}
+              onClick={handleLogout}
             >
               로그아웃
             </MenuItem>
