@@ -4,7 +4,7 @@ import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import { useNavigate } from 'react-router';
 
-export default function Musiclist({image, title, artist, album}) {
+export default function Musiclist({image, title, artist, album, id}) {
   const navigate = useNavigate();
   const isBase64 = (str) => {
     try {
@@ -36,7 +36,14 @@ export default function Musiclist({image, title, artist, album}) {
           <Button 
             sx={{ textAlign: 'left', color: 'black' }}
             onClick={() => {
-              navigate('/songinfo');
+              navigate(`/songinfo/${id}`, {
+                state: {
+                  id: id,
+                  title: title,
+                  img: image,
+                  artist: artist,
+                },
+              });
             }}
           >{title}</Button>
           <Button sx={{ textAlign: 'left', color: 'gray' }}>{album}</Button>

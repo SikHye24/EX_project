@@ -49,6 +49,7 @@ export default function LibraryPage() {
         title={item.title}
         artist={item.artist}
         album={item.genre}
+        id={item.id}
       />
       {index !== data.length - 1 && <Divider sx={{ marginTop: '10px', marginBottom: '10px' }} />}
     </React.Fragment>
