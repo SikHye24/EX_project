@@ -1,9 +1,11 @@
 import React from 'react';
 import {Box, Grid, Button ,Card, CardMedia} from '@mui/material';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 export default function LibraryMusiclist({image, title, artist, album}) {
   const Navigate = useNavigate();
+  const { id } = useParams();
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={1}>
@@ -14,7 +16,7 @@ export default function LibraryMusiclist({image, title, artist, album}) {
             alt="Music"
             sx={{ width: '100%', height: '100%' }}
             onClick={() => {
-              Navigate('/songinfo');
+              Navigate(`/songinfo/${id}`);
             }}
           />
         </Card>
@@ -24,7 +26,7 @@ export default function LibraryMusiclist({image, title, artist, album}) {
           <Button 
             sx={{ textAlign: 'left', color : 'black'}}
             onClick={() => {
-              Navigate('/songinfo');
+              Navigate(`/songinfo/${id}`);
             }}
           >{title}</Button>
           <Button sx={{ textAlign: 'left', color : 'gray'}}>{album}</Button>
