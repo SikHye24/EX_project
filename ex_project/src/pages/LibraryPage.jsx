@@ -22,11 +22,7 @@ export default function LibraryPage() {
 
   const getRes = async () => {
     await axios
-      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/chart?genre=All`, {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/chart?genre=All`)
       .then((res) => {
         setData(res.data.data);
         console.log(res.data.data);

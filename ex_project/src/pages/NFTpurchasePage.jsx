@@ -14,22 +14,18 @@ export default function NFTpurchasePage() {
   const [NFT, setNFT] = useState('');
   const [blockchain, setBlockchain] = useState('');
   const [price, setPrice] = useState('0.005 ETH');
-  const [nftList, setNftList] = useState([]); // 추가된 상태
+  const [nftList, setNftList] = useState([]);
   const token = localStorage.getItem('jwtToken');
 
   const getRes = async () => {
     setLoading(true);
     await axios
-      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`, {
-        headers: {
-          Authorization: token,
-        },
-      })
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`)
       .then(async (res) => {
         setData(res.data.data);
-        setPrice(res.data.data.price); // API에서 가격 정보가 제공되는 경우
-        const nftArray = await handleNFTSet(res.data.data); // NFT 목록을 가져옵니다.
-        setNftList(nftArray); // NFT 목록을 상태에 저장합니다.
+        setPrice(res.data.data.price);
+        const nftArray = await handleNFTSet(res.data.data);
+        setNftList(nftArray);
         setLoading(false);
       })
       .catch((err) => {
@@ -44,18 +40,12 @@ export default function NFTpurchasePage() {
 
     let buyablenftarray = [];
     await axios
-      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/nft/`, 
-      {
-        params: {
-          musicId: musicid,
-        },
-        headers: {
-          Authorization: token,
-        },
-      })
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/nft/${result.id}`)
       .then((res) => {
-        console.log(res.data.data);
-        buyablenftarray = res.data.data;
+        console.log(res.data.data.dataValues.tx_id);
+        if (res.data.data && res.data.data.dataValues) {
+          buyablenftarray.push(res.data.data.dataValues.tx_id);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -141,9 +131,9 @@ export default function NFTpurchasePage() {
             onChange={handleNFTChange}
             sx={{ width: '100%' }}
           >
-            {nftList.map((nft) => (
-              <MenuItem key={nft.id} value={nft.tx_id}>
-                {nft.tx_id}
+            {nftList.map((tx_id, index) => (
+              <MenuItem key={index} value={tx_id}>
+                {tx_id}
               </MenuItem>
             ))}
           </Select>

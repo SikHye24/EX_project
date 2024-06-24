@@ -34,11 +34,13 @@ export default function Navbar() {
   const handleOnClick = async () => {
     console.log(search);
     await axios
-      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music?search=${search}`, {
-        headers: {
-          authorization: token,
-        },
-      })
+      .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music?search=${search}`
+      //   , {
+      //   headers: {
+      //     authorization: token,
+      //   },
+      // }
+    )
       .then((res) => {
         setData(res.data.data);
         console.log(res.data.data);

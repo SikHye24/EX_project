@@ -17,11 +17,13 @@ export default function SonginfoPage() {
     const getRes = async () => {
       setLoading(true);
       await axios
-        .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`, {
-          headers: {
-            Authorization: token,
-          },
-        })
+        .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`
+        //   , {
+        //   headers: {
+        //     Authorization: token,
+        //   },
+        // }
+      )
         .then((res) => {
           setData(res.data.data);
           console.log(res.data.data);

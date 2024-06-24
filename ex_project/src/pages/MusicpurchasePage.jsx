@@ -18,11 +18,13 @@ export default function MusicpurchasePage() {
     const getRes = async () => {
       setLoading(true);
       await axios
-        .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`, {
-          headers: {
-            Authorization: token,
-          },
-        })
+        .get(`http://${process.env.REACT_APP_BACKEND_URL}/api/v1/music/${id}`
+        //   , {
+        //   headers: {
+        //     Authorization: token,
+        //   },
+        // }
+      )
         .then((res) => {
           setData(res.data.data);
           setPrice(res.data.data.price); // API에서 가격 정보가 제공되는 경우
