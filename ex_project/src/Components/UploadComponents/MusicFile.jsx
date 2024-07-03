@@ -1,28 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Typography, Input } from '@mui/material';
 
-export default function MusicFile() {
-  const [selectedFile, setSelectedFile] = useState(null);
-
+export default function MusicFile({ musicFile, setMusicFile }) {
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    setMusicFile(event.target.files[0]);
   };
 
   return (
     <Box sx={{ padding: 2, textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>
-        음원 원본 파일
-      </Typography>
-      <Input
-        type="file"
-        inputProps={{ accept: 'audio/*' }}
-        onChange={handleFileChange}
-      />
-      {selectedFile && (
-        <Typography variant="body1" sx={{ marginTop: 1 }}>
-          {selectedFile.name}
-        </Typography>
-      )}
+      <h1>음원 원본 파일</h1>
+      <Box sx = {{ marginTop : '100px'}}>
+        <Input type="file" inputProps={{ accept: 'audio/*' }} onChange={handleFileChange} />
+        {musicFile && (
+          <Box sx = {{marginTop : '60px'}}>
+            <Box>
+              <h2>선택된 음원</h2>
+            </Box>
+            <Typography variant="body1" sx={{ marginTop: 1 }}>
+            {musicFile.name}
+          </Typography>
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 }
