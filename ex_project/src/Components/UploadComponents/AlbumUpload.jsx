@@ -1,7 +1,7 @@
 import { Box, Card, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-export default function AlbumUpload({ image, setImage }) {
+export default function AlbumUpload({ image, handleImage }) {
   const [error, setError] = useState('');
 
   const handleDrop = (event) => {
@@ -10,11 +10,7 @@ export default function AlbumUpload({ image, setImage }) {
 
     const file = event.dataTransfer.files[0];
     if (file && file.type.startsWith('image/')) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
+      handleImage(file);
       setError('');
     } else {
       setError('올바른 이미지 파일을 드롭해주세요.');
