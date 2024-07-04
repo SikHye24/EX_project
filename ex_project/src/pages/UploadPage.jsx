@@ -23,11 +23,12 @@ export default function UploadPage() {
     lyrics: '',
   });
   const [nftInfo, setNftInfo] = useState([
-    { id: 1, type: '저작권 유형 1', fields: [{ id: '', owner: '', percentage: '' }] },
-    { id: 2, type: '저작권 유형 2', fields: [{ id: '', owner: '', percentage: '' }] },
-    { id: 3, type: '저작권 유형 3', fields: [{ id: '', owner: '', percentage: '' }] },
+    { id: 1, type: '저작권 유형 1', fields: [{ id: '', owner: '', percentage: '', wallet : '' }] },
+    { id: 2, type: '저작권 유형 2', fields: [{ id: '', owner: '', percentage: '', wallet : '' }] },
+    { id: 3, type: '저작권 유형 3', fields: [{ id: '', owner: '', percentage: '', wallet : '' }] },
   ]);
   const [musicFile, setMusicFile] = useState(null);
+  const [ cid1, setCid1 ] = useState('');
   const token = localStorage.getItem('jwtToken');
 
   const handleImage = (imageFile) => {
@@ -59,6 +60,7 @@ export default function UploadPage() {
     setPage(page - 1);
   };
 
+  // 메타데이터 업로드
   const createFormData = (postData) => {
     const formData = new FormData();
     for (const key in postData) {
@@ -100,11 +102,61 @@ export default function UploadPage() {
       });
 
       console.log(response.data.data.cid1);
+      setCid1(response.data.data.cid1);
       return response.data.data.cid1;
     } catch (err) {
       console.error(err);
     }
   };
+
+  //SettleAddr 
+  const getSettleAddr = async () => {
+    if (!cid1) {
+      console.error('CID1 is not set');
+      return;
+    }
+  
+    const walletRate = {};
+    nftInfo.forEach(type => {
+      type.fields.forEach(field => {
+        if (field.wallet) {
+          walletRate[field.wallet] = (typeof walletRate[field.wallet] === 'undefined' ? 0 : parseFloat(walletRate[field.wallet])) + parseFloat(field.percentage);
+        }
+      });
+    });
+  
+    const resultWallet = Object.keys(walletRate);
+    const resultRate = Object.values(walletRate);
+
+
+    try {
+      await init();
+      console.log(resultWallet);
+      console.log(resultRate.map((x) => x * 10000));
+      console.log(JSON.stringify(jwtDecode(token)));
+
+      const deployedContract = await deployContract.settlement(
+        resultWallet, // addresses
+        resultRate.map((x) => x * 10000), // proportion
+        cid1, // songCid
+        '900000000', // price
+      );
+  
+      return deployedContract.options.address;
+    } catch (error) {
+      if (error.response) {
+        console.error('Error response data:', error.response.data);
+        console.error('Error response status:', error.response.status);
+        console.error('Error response headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('Error request:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
+      console.error('Error config:', error.config);
+    }
+  };
+  
 
   return (
     <div>
@@ -143,8 +195,9 @@ export default function UploadPage() {
         <Box sx={{ marginTop: '50px', marginRight: '200px', marginLeft: 'auto', marginBottom: '30px' }}>
           {page > 1 && <Button onClick={ChangePreviousPage}>이전</Button>}
           {page < 4 && <Button onClick={ChangeNextPage}>다음</Button>}
-          {page === 4 && <Button onClick={() => console.log(albumImage, basicInfo, nftInfo, musicFile)}>업로드</Button>}
+          {page === 4 && <Button onClick={() => console.log(albumImage, basicInfo, nftInfo, musicFile)}>데이터 체크</Button>}
           {page === 4 && <Button onClick={handlePostMeta}>메타데이터 업로드</Button>}
+          {page === 4 && <Button onClick={getSettleAddr}>settleAddr 확인</Button>}
         </Box>
       </Box>
     </div>

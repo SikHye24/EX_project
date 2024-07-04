@@ -28,16 +28,18 @@ export default function NFTInformation({ nftInfo, setNftInfo }) {
         },
       })
       .then((res) => {
+        console.log(res.data.data);
         console.log(res.data.data[0].id);
         console.log(res.data.data[0].nickname);
         const id = res.data.data[0].id;
         const nickname = res.data.data[0].nickname;
+        const wallet = res.data.data[0].wallet;
         setNftInfo((prevFields) =>
           prevFields.map((field) =>
             field.id === typeId
               ? {
                   ...field,
-                  fields: field.fields.map((f) => ({ ...f, id, owner: nickname })),
+                  fields: field.fields.map((f) => ({ ...f, id, owner: nickname, wallet : wallet })),
                 }
               : field
           )
