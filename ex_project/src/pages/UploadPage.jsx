@@ -6,8 +6,8 @@ import BasicInformation from '../Components/UploadComponents/BasicInformation';
 import NFTInformation from '../Components/UploadComponents/NFTInformation';
 import MusicFile from '../Components/UploadComponents/MusicFile';
 import axios from 'axios';
-import {jwtDecode} from 'jwt-decode';
-import {init, deployContract} from '../Services/contract';
+import { jwtDecode } from 'jwt-decode';
+import { init, deployContract } from '../Services/contract';
 
 export default function UploadPage() {
   const navigate = useNavigate();
@@ -23,12 +23,12 @@ export default function UploadPage() {
     lyrics: '',
   });
   const [nftInfo, setNftInfo] = useState([
-    { id: 1, type: '저작권 유형 1', fields: [{ id: '', owner: '', percentage: '', wallet : '' }] },
-    { id: 2, type: '저작권 유형 2', fields: [{ id: '', owner: '', percentage: '', wallet : '' }] },
-    { id: 3, type: '저작권 유형 3', fields: [{ id: '', owner: '', percentage: '', wallet : '' }] },
+    { id: 1, type: '저작권 유형 1', fields: [{ id: '', owner: '', percentage: '', wallet: '' }] },
+    { id: 2, type: '저작권 유형 2', fields: [{ id: '', owner: '', percentage: '', wallet: '' }] },
+    { id: 3, type: '저작권 유형 3', fields: [{ id: '', owner: '', percentage: '', wallet: '' }] },
   ]);
   const [musicFile, setMusicFile] = useState(null);
-  const [ cid1, setCid1 ] = useState('');
+  const [cid1, setCid1] = useState('');
   const token = localStorage.getItem('jwtToken');
 
   const handleImage = (imageFile) => {
@@ -128,7 +128,6 @@ export default function UploadPage() {
     const resultWallet = Object.keys(walletRate);
     const resultRate = Object.values(walletRate);
 
-
     try {
       await init();
       console.log(resultWallet);
@@ -141,8 +140,11 @@ export default function UploadPage() {
         cid1, // songCid
         '900000000', // price
       );
-  
-      return deployedContract.options.address;
+      
+      // console.log(deployContract.options.address);
+      // return deployedContract.options.address;
+      console.log(deployContract);
+      return deployedContract;
     } catch (error) {
       if (error.response) {
         console.error('Error response data:', error.response.data);
@@ -156,6 +158,81 @@ export default function UploadPage() {
       console.error('Error config:', error.config);
     }
   };
+
+  const handleUpload = async () => {
+    const cid1 = await handlePostMeta();
+    const settleAddr = await getSettleAddr();
+  
+    if (!cid1 || !settleAddr) {
+      console.error('CID1 또는 settleAddr이 설정되지 않았습니다.');
+      return;
+    }
+  
+    const { name: artist, id: artistId } = jwtDecode(token);
+    const { title, genre } = basicInfo;
+    const file = musicFile;
+  
+    const walletRate = {};
+    nftInfo.forEach(type => {
+      type.fields.forEach(field => {
+        if (field.wallet) {
+          walletRate[field.wallet] = (typeof walletRate[field.wallet] === 'undefined' ? 0 : parseFloat(walletRate[field.wallet])) + parseFloat(field.percentage);
+        }
+      });
+    });
+  
+    // artistId 및 composerId 포함
+    const composerId = nftInfo.find(type => type.id === 1).fields.map(field => field.id);
+    const songWriterId = nftInfo.find(type => type.id === 2).fields.map(field => field.id);
+    
+    const holder = [...composerId, ...songWriterId];
+    const rate = holder.map(() => 1 / holder.length); // 각 홀더의 비율을 동일하게 설정
+  
+    const postData = { title, artist, genre, cid1, holder, rate, settleAddr };
+    console.log('Post Data:', postData);
+    
+    try {
+      const formData = new FormData();
+      for (const key in postData) {
+        if (key === 'holder' || key === 'rate') {
+          formData.append(key, JSON.stringify(postData[key])); // JSON 문자열로 변환하여 추가
+        } else if (Array.isArray(postData[key])) {
+          postData[key].forEach((item, index) => {
+            formData.append(`${key}[${index}]`, item);
+          });
+        } else {
+          formData.append(key, postData[key]);
+        }
+      }
+      formData.append('file', musicFile);
+  
+      await axios({
+        method: 'post',
+        url: `http://${process.env.REACT_APP_BACKEND_URL}/api/v1/upload`,
+        headers: {
+          authorization: token,
+        },
+        data: formData,
+      });
+      console.log('업로드 성공');
+      alert('업로드 성공!');
+      navigate('/');
+    } catch (err) {
+      console.error('업로드에 실패하였습니다. 다시 한번 확인해 주세요.');
+      if (err.response) {
+        console.error('Error response data:', err.response.data);
+        console.error('Error response status:', err.response.status);
+        console.error('Error response headers:', err.response.headers);
+      } else if (err.request) {
+        console.error('Error request:', err.request);
+      } else {
+        console.error('Error message:', err.message);
+      }
+      console.error(err.config);
+    }
+  };
+  
+  
   
 
   return (
@@ -198,6 +275,7 @@ export default function UploadPage() {
           {page === 4 && <Button onClick={() => console.log(albumImage, basicInfo, nftInfo, musicFile)}>데이터 체크</Button>}
           {page === 4 && <Button onClick={handlePostMeta}>메타데이터 업로드</Button>}
           {page === 4 && <Button onClick={getSettleAddr}>settleAddr 확인</Button>}
+          {page === 4 && <Button onClick={handleUpload}>업로드</Button>}
         </Box>
       </Box>
     </div>
